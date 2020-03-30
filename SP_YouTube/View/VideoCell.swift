@@ -9,6 +9,48 @@
 import UIKit
 
 class VideoCell : BaseCell {
+    var video: Video? {
+        didSet {
+            if let thumbnailImageTitle = video?.thumbnailImageName {
+                thumbnailImageView.image = UIImage(named: thumbnailImageTitle)
+            }
+            titleLabel.text = video?.title
+            
+            if let profileImage = video?.channel?.profileImageName {
+                userProfileImageView.image = UIImage(named: profileImage)
+            }
+            
+            var subTitleText = ""
+            if let channelName = video?.channel?.name {
+                subTitleText.append(contentsOf: channelName)
+            }
+            
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            if let numberOfViews = video?.numbersOfViews,
+                let formatted = numberFormatter.string(from: numberOfViews){
+                subTitleText.append(contentsOf: " - \(formatted)")
+            }
+            
+            if let uploadDate = video?.uploadDate {
+                subTitleText.append(contentsOf: " - \(uploadDate)")
+            }
+        
+            subTitleLabel.text = subTitleText
+            
+            
+            //adapting titleLabel height to wrap long titles
+            if let title = video?.title {
+                let size = CGSize(width: frame.width - 88, height: 1000)
+                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)], context: nil)
+                
+                titleLabelHeightConstraint.constant = estimatedRect.size.height > 20 ? 44 :  20
+                self.setNeedsLayout()
+            }
+        }
+    }
+    
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -20,7 +62,6 @@ class VideoCell : BaseCell {
         imageView.animationRepeatCount = 1
         return imageView
     }()
-    
     
     let userProfileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -36,6 +77,7 @@ class VideoCell : BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Linkin Park - What i've done"
+        label.numberOfLines = 2
         return label
     }()
     
@@ -53,17 +95,20 @@ class VideoCell : BaseCell {
         thumbnailImageView.startAnimating()
     }
     
+    var titleLabelHeightConstraint : NSLayoutConstraint!
+    
     override func setupViews() {
         addSubview(thumbnailImageView)
         addSubview(userProfileImageView)
         addSubview(titleLabel)
         addSubview(subTitleLabel)
-        thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        thumbnailImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-        thumbnailImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
-        thumbnailImageView.bottomAnchor.constraint(equalTo: userProfileImageView.topAnchor, constant: -8).isActive = true
         
-        userProfileImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
+        thumbnailImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        thumbnailImageView.widthAnchor.constraint(equalTo: widthAnchor, constant: -32).isActive = true
+        thumbnailImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+        thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 9/16).isActive = true
+
+        userProfileImageView.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 8).isActive = true
         userProfileImageView.leadingAnchor.constraint(equalTo: thumbnailImageView.leadingAnchor).isActive = true
         userProfileImageView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         userProfileImageView.widthAnchor.constraint(equalTo: userProfileImageView.heightAnchor).isActive = true
@@ -71,16 +116,16 @@ class VideoCell : BaseCell {
         titleLabel.topAnchor.constraint(equalTo: userProfileImageView.topAnchor).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: userProfileImageView.trailingAnchor, constant: 8).isActive = true
         titleLabel.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        titleLabelHeightConstraint = titleLabel.heightAnchor.constraint(equalToConstant: 20)
+        titleLabelHeightConstraint.isActive = true
         
-        subTitleLabel.bottomAnchor.constraint(equalTo: userProfileImageView.bottomAnchor, constant: 8).isActive = true
+        
+        subTitleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
         subTitleLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor).isActive = true
         subTitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
         subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4).isActive = true
         
-        
-
-       
+     
         let lineLayer = CAShapeLayer()
         lineLayer.fillColor = UIColor.lightGray.cgColor
            
