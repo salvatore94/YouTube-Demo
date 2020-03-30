@@ -21,12 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let layout = UICollectionViewFlowLayout()
-        let rootVC = HomeController(collectionViewLayout: layout)
+        let rootVC = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         
-        window?.rootViewController = UINavigationController(rootViewController: rootVC)
-        
-        
+        window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

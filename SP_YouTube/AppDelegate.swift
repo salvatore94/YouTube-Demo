@@ -8,13 +8,19 @@
 
 import UIKit
 
+public let barRedColor = UIColor(red: 230/255, green: 32/255, blue: 31/255, alpha: 1)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UINavigationBar.appearance().barTintColor = barRedColor
+        UINavigationBar.appearance().shadowImage = UIImage()
+        
+        
+        
         return true
     }
 

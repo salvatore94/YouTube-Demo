@@ -13,6 +13,10 @@
 		9D05449A242E663400C56982 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D054499242E663400C56982 /* Assets.xcassets */; };
 		9D05449D242E663400C56982 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D05449B242E663400C56982 /* LaunchScreen.storyboard */; };
 		9D0544A5242E6FF900C56982 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0544A4242E6FF900C56982 /* VideoCell.swift */; };
+		9D3CBF5424310B7A0037C818 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5324310B7A0037C818 /* MenuBar.swift */; };
+		9D3CBF5624310C410037C818 /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5524310C410037C818 /* MenuBarCell.swift */; };
+		9D3CBF5824310C9F0037C818 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5724310C9F0037C818 /* BaseCell.swift */; };
+		9DA83D34242FB061008F8C10 /* lp.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9DA83D33242FB061008F8C10 /* lp.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		9D05449C242E663400C56982 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D05449E242E663400C56982 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D0544A4242E6FF900C56982 /* VideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		9D3CBF5324310B7A0037C818 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		9D3CBF5524310C410037C818 /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
+		9D3CBF5724310C9F0037C818 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		9DA83D33242FB061008F8C10 /* lp.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lp.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,12 +67,24 @@
 				9D054490242E663200C56982 /* AppDelegate.swift */,
 				9D054492242E663200C56982 /* SceneDelegate.swift */,
 				9D054494242E663200C56982 /* HomeController.swift */,
-				9D0544A4242E6FF900C56982 /* VideoCell.swift */,
+				9D3CBF5224310B510037C818 /* View */,
 				9D054499242E663400C56982 /* Assets.xcassets */,
 				9D05449B242E663400C56982 /* LaunchScreen.storyboard */,
 				9D05449E242E663400C56982 /* Info.plist */,
+				9DA83D33242FB061008F8C10 /* lp.gif */,
 			);
 			path = SP_YouTube;
+			sourceTree = "<group>";
+		};
+		9D3CBF5224310B510037C818 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9D3CBF5724310C9F0037C818 /* BaseCell.swift */,
+				9D0544A4242E6FF900C56982 /* VideoCell.swift */,
+				9D3CBF5524310C410037C818 /* MenuBarCell.swift */,
+				9D3CBF5324310B7A0037C818 /* MenuBar.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +147,7 @@
 			files = (
 				9D05449D242E663400C56982 /* LaunchScreen.storyboard in Resources */,
 				9D05449A242E663400C56982 /* Assets.xcassets in Resources */,
+				9DA83D34242FB061008F8C10 /* lp.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,8 +160,11 @@
 			files = (
 				9D0544A5242E6FF900C56982 /* VideoCell.swift in Sources */,
 				9D054495242E663200C56982 /* HomeController.swift in Sources */,
+				9D3CBF5624310C410037C818 /* MenuBarCell.swift in Sources */,
 				9D054491242E663200C56982 /* AppDelegate.swift in Sources */,
+				9D3CBF5824310C9F0037C818 /* BaseCell.swift in Sources */,
 				9D054493242E663200C56982 /* SceneDelegate.swift in Sources */,
+				9D3CBF5424310B7A0037C818 /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +310,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.salvatorepolito.SP-YouTube";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -304,7 +328,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.salvatorepolito.SP-YouTube";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

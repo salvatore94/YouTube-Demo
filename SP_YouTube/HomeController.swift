@@ -15,9 +15,28 @@ class HomeController: UICollectionViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        navigationItem.title = "Home"
-        collectionView.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        let titleView = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-32, height: view.frame.height))
+        titleView.text = "HOME"
+        titleView.textColor = UIColor.white
+        titleView.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        navigationItem.titleView = titleView
         
+        
+        let menuBarHeight: CGFloat = 50
+        let menuBar = MenuBar()
+        view.addSubview(menuBar)
+        menuBar.translatesAutoresizingMaskIntoConstraints = false
+        menuBar.heightAnchor.constraint(equalToConstant: menuBarHeight).isActive = true
+        menuBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        
+        collectionView.backgroundColor = .white
+        //Using insets to align the content's of collection view with the menu bar
+        collectionView.contentInset = UIEdgeInsets(top: menuBarHeight, left: 0, bottom: 0, right: 0)
+        collectionView.scrollIndicatorInsets = UIEdgeInsets(top: menuBarHeight, left: 0, bottom: 0, right: 0)
         
         collectionView.register(VideoCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
@@ -36,9 +55,15 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //We calculate cell's height based on 
+        //We calculate cell's height based on preview size
+        //To keep correct aspect ratio for preview we need to give 9/16 of it's width
+        //Of course the accessory view height needs to be added
         
-        return CGSize(width: view.frame.width, height: 200)
+        //Padding: top=16, bottom=44+8+16, left=right=16
+        let previewHeight : CGFloat = (view.frame.width - 32) * 9/16
+        let height : CGFloat = previewHeight + 68
+        
+        return CGSize(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
