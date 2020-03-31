@@ -11,43 +11,48 @@ import UIKit
 class VideoCell : BaseCell {
     var video: Video? {
         didSet {
-            if let thumbnailImageTitle = video?.thumbnailImageName {
-                thumbnailImageView.image = UIImage(named: thumbnailImageTitle)
+            guard let video = video else {
+                thumbnailImageView.image = nil
+                userProfileImageView.image = nil
+                titleLabel.text = nil
+                subTitleLabel.text = ""
+                return
             }
-            titleLabel.text = video?.title
+            titleLabel.text = video.title
+
             
-            if let profileImage = video?.channel?.profileImageName {
-                userProfileImageView.image = UIImage(named: profileImage)
+            guard let thumbnailImageViewURL = URL(string: video.thumbnailImageName) else {return}
+            ImageLoader.image(for: thumbnailImageViewURL) { (image) in
+                self.thumbnailImageView.image = image
             }
+            
+        
+            guard let userProfileImageViewURL = URL(string: video.channel.profileImageName) else {return}
+            ImageLoader.image(for: userProfileImageViewURL) { (image) in
+                self.userProfileImageView.image = image
+            }
+            
             
             var subTitleText = ""
-            if let channelName = video?.channel?.name {
-                subTitleText.append(contentsOf: channelName)
-            }
+            subTitleText.append(contentsOf: video.channel.name)
             
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
-            if let numberOfViews = video?.numbersOfViews,
-                let formatted = numberFormatter.string(from: numberOfViews){
+            let nsNumber = NSNumber(value: video.numbersOfViews)
+            if let formatted = numberFormatter.string(from: nsNumber){
                 subTitleText.append(contentsOf: " - \(formatted)")
             }
             
-            if let uploadDate = video?.uploadDate {
-                subTitleText.append(contentsOf: " - \(uploadDate)")
-            }
-        
             subTitleLabel.text = subTitleText
             
             
             //adapting titleLabel height to wrap long titles
-            if let title = video?.title {
-                let size = CGSize(width: frame.width - 88, height: 1000)
-                let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-                let estimatedRect = NSString(string: title).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)], context: nil)
-                
-                titleLabelHeightConstraint.constant = estimatedRect.size.height > 20 ? 44 :  20
-                self.setNeedsLayout()
-            }
+            let size = CGSize(width: frame.width - 88, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+            let estimatedRect = NSString(string: video.title).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)], context: nil)
+            
+            titleLabelHeightConstraint.constant = estimatedRect.size.height > 20 ? 44 :  20
+            self.setNeedsLayout()
         }
     }
     
@@ -56,10 +61,6 @@ class VideoCell : BaseCell {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.animationImages = UIImage.gif(named: "lp")
-        imageView.image = imageView.animationImages?.first
-        imageView.animationDuration = 3
-        imageView.animationRepeatCount = 1
         return imageView
     }()
     
@@ -69,14 +70,12 @@ class VideoCell : BaseCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 44/2
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "lp_profile")
         return imageView
     }()
     
     let titleLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Linkin Park - What i've done"
         label.numberOfLines = 2
         return label
     }()
@@ -84,16 +83,12 @@ class VideoCell : BaseCell {
     let subTitleLabel : UITextView = {
         let label = UITextView()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "LinkinParkVEVO • 1,604,684,607 views • 12 years ago"
         label.textColor = UIColor.lightGray
         label.isUserInteractionEnabled = false
         label.contentInset = .init(top: -8, left: -4, bottom: 0, right: 0)
         return label
     }()
     
-    @objc func previewTap() {
-        thumbnailImageView.startAnimating()
-    }
     
     var titleLabelHeightConstraint : NSLayoutConstraint!
     
@@ -134,42 +129,5 @@ class VideoCell : BaseCell {
         lineLayer.path = CGPath(rect: lineLayer.frame, transform: nil)
         layer.addSublayer(lineLayer)
         lineLayer.position = CGPoint(x: 0, y: bounds.maxY - 1)
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(VideoCell.previewTap))
-        addGestureRecognizer(tap)
-    }
-}
-
-
-
-
-extension UIImage {
-    static func gif(named: String) -> [UIImage]? {
-        guard let path = Bundle.main.path(forResource: named, ofType: "gif") else {
-            print("Gif does not exist at that path")
-            return nil
-        }
-        let url = URL(fileURLWithPath: path)
-        guard let gifData = try? Data(contentsOf: url),
-            let source =  CGImageSourceCreateWithData(gifData as CFData, nil) else { return nil }
-        var images = [UIImage]()
-        let imageCount = CGImageSourceGetCount(source)
-        for i in 0 ..< imageCount {
-            if let image = CGImageSourceCreateImageAtIndex(source, i, nil) {
-                images.append(UIImage(cgImage: image))
-            }
-        }
-        return images
-    }
-}
-
-
-extension UIView {
-    func makeConstraints(from anchorView: UIView, withPadding top: CGFloat, bottom: CGFloat, leading: CGFloat, trailing: CGFloat){
-        translatesAutoresizingMaskIntoConstraints = false
-        leadingAnchor.constraint(equalTo: anchorView.leadingAnchor, constant: leading).isActive = true
-        trailingAnchor.constraint(equalTo: anchorView.trailingAnchor, constant: trailing).isActive = true
-        topAnchor.constraint(equalTo: anchorView.topAnchor, constant: top).isActive = true
-        bottomAnchor.constraint(equalTo: anchorView.bottomAnchor, constant: bottom).isActive = true
     }
 }

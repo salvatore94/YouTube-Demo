@@ -18,26 +18,29 @@ class HomeController: UICollectionViewController {
     }()
     
     var videos : [Video] = {
-        var channel = Channel()
-        channel.name = "TaylorSwiftVEVO"
-        channel.profileImageName = "taylor_swift_profile"
+//        var channel = Channel()
+//        channel.name = "TaylorSwiftVEVO"
+//        channel.profileImageName = "taylor_swift_profile"
+//
+//        var blankSpace = Video()
+//        blankSpace.title = "Taylor Swift - Blank Space"
+//        blankSpace.thumbnailImageName = "taylor_swift_blank_space"
+//        blankSpace.channel = channel
+//        blankSpace.numbersOfViews = 20002020
+//        var badBlood = Video()
+//        badBlood.title = "Taylor Swift - Bad Blood Taylor Swift - Bad Blood "
+//        badBlood.thumbnailImageName = "taylor_swift_bad_blood"
+//        badBlood.channel = channel
         
-        var blankSpace = Video()
-        blankSpace.title = "Taylor Swift - Blank Space"
-        blankSpace.thumbnailImageName = "taylor_swift_blank_space"
-        blankSpace.channel = channel
-        blankSpace.numbersOfViews = 20002020
-        var badBlood = Video()
-        badBlood.title = "Taylor Swift - Bad Blood Taylor Swift - Bad Blood "
-        badBlood.thumbnailImageName = "taylor_swift_bad_blood"
-        badBlood.channel = channel
-        
-        return [blankSpace, badBlood]
+//        return [blankSpace, badBlood]
+        return []
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        fetchVideos()
         
         navigationController?.navigationBar.isTranslucent = false
         let titleView = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-32, height: view.frame.height))
@@ -56,6 +59,37 @@ class HomeController: UICollectionViewController {
         
         setupMenuBar()
         setupNavBarButtons()
+        
+    }
+    
+    private func fetchVideos() {
+        let urlString = "https://raw.githubusercontent.com/salvatore94/SP_YouTube_assets/master/home.json"
+        guard let url = URL(string: urlString) else {return}
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            guard let data = data else {
+                print("data == nil")
+                return
+            }
+            
+            do {
+                let fetchedVideos = try JSONDecoder().decode([Video].self, from: data)
+                
+                DispatchQueue.main.async {
+                    self.videos = fetchedVideos
+                    self.collectionView.reloadData()
+                }
+
+            } catch {
+                print(error.localizedDescription)
+            }
+            
+            
+        }.resume()
     }
 
     private func setupNavBarButtons() {
