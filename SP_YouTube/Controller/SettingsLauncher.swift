@@ -38,20 +38,38 @@ class SettingsLauncher : NSObject {
         collectionView.register(SettingsCell.self, forCellWithReuseIdentifier: settingsCellID)
     }
     
+    private var collectionViewBottomAnchor: NSLayoutConstraint!
+    
     public func showSettings() {
         let optionalWindow = UIApplication.shared.windows.first{$0.isKeyWindow}
         guard let window = optionalWindow else {return}
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         blackView.alpha = 0
-        blackView.frame = window.frame
-        collectionView.frame = CGRect(x: 0, y: window.frame.maxY, width: window.frame.width, height: collectionViewHeight)
+        //blackView.frame = window.frame
+        //collectionView.frame = CGRect(x: 0, y: window.frame.maxY, width: window.frame.width, height: collectionViewHeight)
         
         window.addSubview(blackView)
         window.addSubview(collectionView)
+        blackView.translatesAutoresizingMaskIntoConstraints = false
+        blackView.leadingAnchor.constraint(equalTo: window.leadingAnchor).isActive = true
+        blackView.trailingAnchor.constraint(equalTo: window.trailingAnchor).isActive = true
+        blackView.bottomAnchor.constraint(equalTo: window.bottomAnchor).isActive = true
+        blackView.topAnchor.constraint(equalTo: window.topAnchor).isActive = true
+        window.layoutIfNeeded()
+
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.leadingAnchor.constraint(equalTo: window.leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: window.trailingAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: collectionViewHeight).isActive = true
+
+        collectionViewBottomAnchor = collectionView.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: collectionViewHeight)
+        collectionViewBottomAnchor.isActive = true
+        window.layoutIfNeeded()
         
+        collectionViewBottomAnchor.constant = 0
         UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             self.blackView.alpha = 1
-            self.collectionView.frame.origin.y = window.frame.maxY - self.collectionViewHeight
+            window.layoutIfNeeded()
         }.startAnimation()
         
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SettingsLauncher.handleDismiss)))
@@ -62,10 +80,11 @@ class SettingsLauncher : NSObject {
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             self.blackView.alpha = 0
         }
+        collectionViewBottomAnchor.constant = collectionViewHeight
         let optionalWindow = UIApplication.shared.windows.first{$0.isKeyWindow}
         if let window = optionalWindow {
             animator.addAnimations {
-                self.collectionView.frame.origin.y = window.frame.maxY
+                window.layoutIfNeeded()
             }
         }
         animator.addCompletion { (_) in

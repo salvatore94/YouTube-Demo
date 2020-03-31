@@ -123,15 +123,18 @@ class VideoCell : BaseCell {
         subTitleLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor).isActive = true
         subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4).isActive = true
         
-     
-        let lineLayer = CAShapeLayer()
-        lineLayer.fillColor = UIColor.lightGray.cgColor
-           
-        //Fixme: Why I had to multiply width for scale?
-        lineLayer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width*UIScreen.main.scale, height: 1)
-        lineLayer.path = CGPath(rect: lineLayer.frame, transform: nil)
-        layer.addSublayer(lineLayer)
-        lineLayer.position = CGPoint(x: 0, y: bounds.maxY - 1)
+        
+        let lineView = UIView()
+        addSubview(lineView)
+        lineView.backgroundColor = .lightGray
+        lineView.layer.cornerRadius = 1
+        lineView.layer.masksToBounds = true
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        lineView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        lineView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.95).isActive = true
+        lineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -2).isActive = true
+        lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
     }
     
     override func prepareForReuse() {

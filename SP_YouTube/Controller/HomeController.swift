@@ -47,6 +47,14 @@ class HomeController: UICollectionViewController {
         
     }
     
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        collectionView.collectionViewLayout.invalidateLayout()
+        settingsLauncher.collectionView.collectionViewLayout.invalidateLayout()
+        menuBar.collectionView.collectionViewLayout.invalidateLayout()
+    }
+    
     private func fetchVideos() {
         let urlString = "https://raw.githubusercontent.com/salvatore94/SP_YouTube_assets/master/home.json"
         guard let url = URL(string: urlString) else {return}
