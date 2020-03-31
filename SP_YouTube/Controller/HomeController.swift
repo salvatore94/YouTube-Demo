@@ -11,30 +11,15 @@ import UIKit
 class HomeController: UICollectionViewController {
     private let reuseIdentifier = "HomeControllerCell"
     
+    private let settingsLauncher = SettingsLauncher()
+    
     private let menuBarHeight: CGFloat = 50
     let menuBar : MenuBar = {
         let mb = MenuBar()
         return mb
     }()
     
-    var videos : [Video] = {
-//        var channel = Channel()
-//        channel.name = "TaylorSwiftVEVO"
-//        channel.profileImageName = "taylor_swift_profile"
-//
-//        var blankSpace = Video()
-//        blankSpace.title = "Taylor Swift - Blank Space"
-//        blankSpace.thumbnailImageName = "taylor_swift_blank_space"
-//        blankSpace.channel = channel
-//        blankSpace.numbersOfViews = 20002020
-//        var badBlood = Video()
-//        badBlood.title = "Taylor Swift - Bad Blood Taylor Swift - Bad Blood "
-//        badBlood.thumbnailImageName = "taylor_swift_bad_blood"
-//        badBlood.channel = channel
-        
-//        return [blankSpace, badBlood]
-        return []
-    }()
+    var videos : [Video] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +95,7 @@ class HomeController: UICollectionViewController {
     
     @objc
     func handleMore() {
-        
+        settingsLauncher.showSettings()
     }
     
     private func setupMenuBar() {

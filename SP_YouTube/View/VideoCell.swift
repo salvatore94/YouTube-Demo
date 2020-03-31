@@ -12,10 +12,7 @@ class VideoCell : BaseCell {
     var video: Video? {
         didSet {
             guard let video = video else {
-                thumbnailImageView.image = nil
-                userProfileImageView.image = nil
-                titleLabel.text = nil
-                subTitleLabel.text = ""
+                clear()
                 return
             }
             titleLabel.text = video.title
@@ -23,13 +20,19 @@ class VideoCell : BaseCell {
             
             guard let thumbnailImageViewURL = URL(string: video.thumbnailImageName) else {return}
             ImageLoader.image(for: thumbnailImageViewURL) { (image) in
-                self.thumbnailImageView.image = image
+                if let video = self.video,
+                    thumbnailImageViewURL == URL(string: video.thumbnailImageName) {
+                    self.thumbnailImageView.image = image
+                }
             }
             
         
             guard let userProfileImageViewURL = URL(string: video.channel.profileImageName) else {return}
             ImageLoader.image(for: userProfileImageViewURL) { (image) in
-                self.userProfileImageView.image = image
+                if let video = self.video,
+                    userProfileImageViewURL == URL(string: video.channel.profileImageName) {
+                    self.userProfileImageView.image = image
+                }
             }
             
             
@@ -129,5 +132,17 @@ class VideoCell : BaseCell {
         lineLayer.path = CGPath(rect: lineLayer.frame, transform: nil)
         layer.addSublayer(lineLayer)
         lineLayer.position = CGPoint(x: 0, y: bounds.maxY - 1)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        clear()
+    }
+    
+    private func clear() {
+        thumbnailImageView.image = nil
+        userProfileImageView.image = nil
+        titleLabel.text = nil
+        subTitleLabel.text = ""
     }
 }

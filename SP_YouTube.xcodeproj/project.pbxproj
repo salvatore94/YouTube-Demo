@@ -16,11 +16,14 @@
 		9D3CBF5424310B7A0037C818 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5324310B7A0037C818 /* MenuBar.swift */; };
 		9D3CBF5624310C410037C818 /* MenuBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5524310C410037C818 /* MenuBarCell.swift */; };
 		9D3CBF5824310C9F0037C818 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5724310C9F0037C818 /* BaseCell.swift */; };
+		9D4986F124338DE8007D5D6A /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4986F024338DE8007D5D6A /* Setting.swift */; };
 		9D8B72162432334300B0E758 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B72152432334300B0E758 /* Video.swift */; };
 		9D8B72182432364200B0E758 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B72172432364200B0E758 /* Channel.swift */; };
 		9DA83D34242FB061008F8C10 /* lp.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9DA83D33242FB061008F8C10 /* lp.gif */; };
 		9DDAB357243362BD009609FA /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDAB356243362BD009609FA /* ImageLoader.swift */; };
 		9DDAB359243363C0009609FA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDAB358243363C0009609FA /* UIImage+Extensions.swift */; };
+		9DDAB35B24337E3B009609FA /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDAB35A24337E3B009609FA /* SettingsLauncher.swift */; };
+		9DDAB35D243383F6009609FA /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDAB35C243383F6009609FA /* SettingsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,11 +38,14 @@
 		9D3CBF5324310B7A0037C818 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		9D3CBF5524310C410037C818 /* MenuBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarCell.swift; sourceTree = "<group>"; };
 		9D3CBF5724310C9F0037C818 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
+		9D4986F024338DE8007D5D6A /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		9D8B72152432334300B0E758 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		9D8B72172432364200B0E758 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		9DA83D33242FB061008F8C10 /* lp.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lp.gif; sourceTree = "<group>"; };
 		9DDAB356243362BD009609FA /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		9DDAB358243363C0009609FA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		9DDAB35A24337E3B009609FA /* SettingsLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
+		9DDAB35C243383F6009609FA /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,7 @@
 			children = (
 				9D3CBF5724310C9F0037C818 /* BaseCell.swift */,
 				9D0544A4242E6FF900C56982 /* VideoCell.swift */,
+				9DDAB35C243383F6009609FA /* SettingsCell.swift */,
 				9D3CBF5524310C410037C818 /* MenuBarCell.swift */,
 				9D3CBF5324310B7A0037C818 /* MenuBar.swift */,
 			);
@@ -101,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				9D054494242E663200C56982 /* HomeController.swift */,
+				9DDAB35A24337E3B009609FA /* SettingsLauncher.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -110,6 +118,7 @@
 			children = (
 				9D8B72152432334300B0E758 /* Video.swift */,
 				9D8B72172432364200B0E758 /* Channel.swift */,
+				9D4986F024338DE8007D5D6A /* Setting.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -198,10 +207,13 @@
 				9D054495242E663200C56982 /* HomeController.swift in Sources */,
 				9DDAB357243362BD009609FA /* ImageLoader.swift in Sources */,
 				9D3CBF5624310C410037C818 /* MenuBarCell.swift in Sources */,
+				9D4986F124338DE8007D5D6A /* Setting.swift in Sources */,
+				9DDAB35D243383F6009609FA /* SettingsCell.swift in Sources */,
 				9DDAB359243363C0009609FA /* UIImage+Extensions.swift in Sources */,
 				9D054491242E663200C56982 /* AppDelegate.swift in Sources */,
 				9D3CBF5824310C9F0037C818 /* BaseCell.swift in Sources */,
 				9D8B72162432334300B0E758 /* Video.swift in Sources */,
+				9DDAB35B24337E3B009609FA /* SettingsLauncher.swift in Sources */,
 				9D054493242E663200C56982 /* SceneDelegate.swift in Sources */,
 				9D8B72182432364200B0E758 /* Channel.swift in Sources */,
 				9D3CBF5424310B7A0037C818 /* MenuBar.swift in Sources */,
