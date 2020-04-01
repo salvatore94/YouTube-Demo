@@ -11,7 +11,11 @@ import UIKit
 class HomeController: UICollectionViewController {
     private let reuseIdentifier = "HomeControllerCell"
     
-    private let settingsLauncher = SettingsLauncher()
+    private lazy var settingsLauncher : SettingsLauncher = {
+        let launcher = SettingsLauncher()
+        launcher.homeController = self
+        return launcher
+    }()
     
     private let menuBarHeight: CGFloat = 50
     let menuBar : MenuBar = {
@@ -104,6 +108,15 @@ class HomeController: UICollectionViewController {
     @objc
     func handleMore() {
         settingsLauncher.showSettings()
+    }
+    
+    public func showControllerForSettings(withTitle title: String) {
+        let dummyViewController = UIViewController()
+        navigationController?.pushViewController(dummyViewController, animated: true)
+        dummyViewController.view.backgroundColor = .white
+        dummyViewController.navigationItem.title = title
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     private func setupMenuBar() {

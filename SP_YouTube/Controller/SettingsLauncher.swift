@@ -22,6 +22,8 @@ class SettingsLauncher : NSObject {
         }
     }
     
+    public weak var homeController: HomeController?
+    
     lazy var collectionView : UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -76,7 +78,7 @@ class SettingsLauncher : NSObject {
     }
     
     @objc
-    private func handleDismiss() {
+    private func handleDismiss(completion: (()->Void)? = nil) {
         let animator = UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
             self.blackView.alpha = 0
         }
@@ -90,22 +92,18 @@ class SettingsLauncher : NSObject {
         animator.addCompletion { (_) in
             self.blackView.removeFromSuperview()
             self.collectionView.removeFromSuperview()
+            completion?()
         }
         animator.startAnimation()
     }
     
     private func fetchSettings() {
-        let settingsIcons = ["settings", "privacy", "feedback", "help", "switch_account", "cancel"]
-        let settingsTitles = ["Impostazioni", "Privacy e Sicurezza", "Manda un Feedback", "Aiuto", "Cambia Account", "Annulla"]
+        let settingsTypes : [SettingType] = [.settings, .privacy, .feedback, .help, .switchAccount, .cancel]
         
-        assert(settingsTitles.count == settingsIcons.count)
-        
-        for i in 0..<settingsIcons.count {
-            let title = settingsTitles[i]
-            let iconName = settingsIcons[i]
-            let setting = Setting(name: title, imageName: iconName)
-            settings.append(setting)
+        settingsTypes.forEach { (type) in
+            settings.append(Setting(type: type))
         }
+        
     }
 }
 
@@ -121,6 +119,16 @@ extension SettingsLauncher: UICollectionViewDelegate, UICollectionViewDelegateFl
         cell.setting = settings[indexPath.item]
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let title = settings[indexPath.item].name
+      
+        let type = settings[indexPath.item].type
+        
+        let completion = type == .cancel ? {} : {self.homeController?.showControllerForSettings(withTitle: title)}
+        
+        handleDismiss(completion: completion)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

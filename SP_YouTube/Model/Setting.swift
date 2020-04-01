@@ -9,11 +9,41 @@
 import Foundation
 
 class Setting : NSObject {
-    let name: String
-    let imageName: String
+    public var name: String {get{return type.settingName}}
+    public var imageName: String  {get{return type.iconName}}
     
-    init(name: String, imageName: String) {
-        self.name = name
-        self.imageName = imageName
+    public let type: SettingType
+    
+    init(type: SettingType) {
+        self.type = type
+    }
+}
+
+
+enum SettingType : String {
+    case settings = "Impostazioni"
+    case privacy = "Privacy & Sicurezza"
+    case feedback = "Manda un Feedback"
+    case help = "Aiuto"
+    case switchAccount = "Cambia Account"
+    case cancel = "Annulla"
+    
+    public var settingName : String {
+        get {
+            return rawValue
+        }
+    }
+    
+    public var iconName: String {
+        get {
+            switch self {
+            case .settings: return "settings"
+            case .privacy: return "privacy"
+            case .feedback: return "feedback"
+            case .help: return "help"
+            case .switchAccount: return "switch_account"
+            case .cancel: return "cancel"
+            }
+        }
     }
 }
