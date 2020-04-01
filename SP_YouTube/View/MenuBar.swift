@@ -24,6 +24,7 @@ class MenuBar : UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+
         
         addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,17 +37,34 @@ class MenuBar : UIView {
         collectionView.register(MenuBarCell.self, forCellWithReuseIdentifier: cellID)
         
         collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .init())
+        setupBottomBar()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private var bottomBarLeadingConstraint: NSLayoutConstraint!
+    
+    func setupBottomBar() {
+        let count = CGFloat(imagesName.count)
+        let bottomBarView = UIView()
+        bottomBarView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        addSubview(bottomBarView)
+        bottomBarView.translatesAutoresizingMaskIntoConstraints = false
+        bottomBarView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        bottomBarView.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        bottomBarView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/count).isActive = true
+        
+        bottomBarLeadingConstraint = bottomBarView.leadingAnchor.constraint(equalTo: leadingAnchor)
+        bottomBarLeadingConstraint.isActive = true
     }
 }
 
 
 extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return imagesName.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -64,5 +82,17 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cellWidth = frame.width / CGFloat(imagesName.count)
+        let constraintConstant = CGFloat(indexPath.item) * cellWidth
+        
+        
+        bottomBarLeadingConstraint.constant = constraintConstant
+        
+        UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
+            self.layoutIfNeeded()
+        }.startAnimation()
     }
 }

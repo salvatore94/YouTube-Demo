@@ -32,8 +32,10 @@ class HomeController: UICollectionViewController {
         fetchVideos()
         
         navigationController?.navigationBar.isTranslucent = false
+        navigationController?.hidesBarsOnSwipe = true
+        
         let titleView = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width-32, height: view.frame.height))
-        titleView.text = "HOME"
+        titleView.text = "  HOME"
         titleView.textColor = UIColor.white
         titleView.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         navigationItem.titleView = titleView
@@ -60,33 +62,12 @@ class HomeController: UICollectionViewController {
     }
     
     private func fetchVideos() {
-        let urlString = "https://raw.githubusercontent.com/salvatore94/SP_YouTube_assets/master/home.json"
-        guard let url = URL(string: urlString) else {return}
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print(error.localizedDescription)
+        VideoFetcher.shared.fetch { fetchedVideos in
+            DispatchQueue.main.async {
+                self.videos = fetchedVideos
+                self.collectionView.reloadData()
             }
-            
-            guard let data = data else {
-                print("data == nil")
-                return
-            }
-            
-            do {
-                let fetchedVideos = try JSONDecoder().decode([Video].self, from: data)
-                
-                DispatchQueue.main.async {
-                    self.videos = fetchedVideos
-                    self.collectionView.reloadData()
-                }
-
-            } catch {
-                print(error.localizedDescription)
-            }
-            
-            
-        }.resume()
+        }
     }
 
     private func setupNavBarButtons() {
@@ -120,10 +101,20 @@ class HomeController: UICollectionViewController {
     }
     
     private func setupMenuBar() {
+        //we make a dummy redView to hide a glitch that occurs when navBar hides 
+        let redView = UIView()
+        redView.backgroundColor = barRedColor
+        view.addSubview(redView)
+        redView.translatesAutoresizingMaskIntoConstraints = false
+        redView.heightAnchor.constraint(equalToConstant: menuBarHeight).isActive = true
+        redView.topAnchor.constraint(equalTo:  view.topAnchor).isActive = true
+        redView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        redView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
         view.addSubview(menuBar)
         menuBar.translatesAutoresizingMaskIntoConstraints = false
         menuBar.heightAnchor.constraint(equalToConstant: menuBarHeight).isActive = true
-        menuBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        menuBar.topAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.topAnchor).isActive = true
         menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
