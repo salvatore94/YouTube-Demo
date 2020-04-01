@@ -77,4 +77,8 @@ extension FeedCell : UICollectionViewDelegate, UICollectionViewDelegateFlowLayou
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let videoLauncher = VideoLauncher()
+        videoLauncher.showViewPlayer()
+    }
 }
