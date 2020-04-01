@@ -12,9 +12,8 @@ class VideoFetcher: NSObject {
     
     static let shared = VideoFetcher()
     
-    private let urlString = "https://raw.githubusercontent.com/salvatore94/SP_YouTube_assets/master/home.json"
-    
-    func fetch(completion: @escaping ([Video])->() ) {
+    func fetch(type: FetchType, completion: @escaping ([Video])->() ) {
+        let urlString = type.urlString
         guard let url = URL(string: urlString) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -38,5 +37,20 @@ class VideoFetcher: NSObject {
             
             
         }.resume()
+    }
+    
+}
+
+
+enum FetchType : String {
+    case home = "home.json"
+    case trending = "trending.json"
+    case subscription = "subscriptions.json"
+    
+    private var baseURL : String {get {return "https://raw.githubusercontent.com/salvatore94/SP_YouTube_assets/master/"} }
+    public var urlString : String {
+        get {
+            return baseURL + rawValue
+        }
     }
 }

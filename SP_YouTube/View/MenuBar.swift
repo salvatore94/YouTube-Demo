@@ -22,6 +22,8 @@ class MenuBar : UIView {
     
     private let imagesName = ["home", "trending", "subscriptions", "account"]
     
+    public weak var homeController: HomeController?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -44,7 +46,7 @@ class MenuBar : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var bottomBarLeadingConstraint: NSLayoutConstraint!
+    var bottomBarLeadingConstraint: NSLayoutConstraint!
     
     func setupBottomBar() {
         let count = CGFloat(imagesName.count)
@@ -85,14 +87,15 @@ extension MenuBar: UICollectionViewDelegate, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cellWidth = frame.width / CGFloat(imagesName.count)
-        let constraintConstant = CGFloat(indexPath.item) * cellWidth
+//        let cellWidth = frame.width / CGFloat(imagesName.count)
+//        let constraintConstant = CGFloat(indexPath.item) * cellWidth
+//        
+//        
+//        bottomBarLeadingConstraint.constant = constraintConstant
+//        
+//        UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
+//            self.layoutIfNeeded()
+//        }.startAnimation()
         
-        
-        bottomBarLeadingConstraint.constant = constraintConstant
-        
-        UIViewPropertyAnimator(duration: 0.5, curve: .easeOut) {
-            self.layoutIfNeeded()
-        }.startAnimation()
-    }
+        homeController?.scrollToMenuIndex(indexPath.item)    }
 }

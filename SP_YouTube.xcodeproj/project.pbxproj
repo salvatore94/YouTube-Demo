@@ -18,6 +18,9 @@
 		9D3CBF5824310C9F0037C818 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3CBF5724310C9F0037C818 /* BaseCell.swift */; };
 		9D4986F124338DE8007D5D6A /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4986F024338DE8007D5D6A /* Setting.swift */; };
 		9D4F65042434A2810002795B /* VideoFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4F65032434A2810002795B /* VideoFetcher.swift */; };
+		9D4F65072434CEBF0002795B /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4F65062434CEBF0002795B /* FeedCell.swift */; };
+		9D4F65092434DC690002795B /* TrendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4F65082434DC690002795B /* TrendingCell.swift */; };
+		9D4F650B2434DE060002795B /* SubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4F650A2434DE060002795B /* SubscriptionCell.swift */; };
 		9D8B72162432334300B0E758 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B72152432334300B0E758 /* Video.swift */; };
 		9D8B72182432364200B0E758 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8B72172432364200B0E758 /* Channel.swift */; };
 		9DA83D34242FB061008F8C10 /* lp.gif in Resources */ = {isa = PBXBuildFile; fileRef = 9DA83D33242FB061008F8C10 /* lp.gif */; };
@@ -41,6 +44,9 @@
 		9D3CBF5724310C9F0037C818 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		9D4986F024338DE8007D5D6A /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		9D4F65032434A2810002795B /* VideoFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFetcher.swift; sourceTree = "<group>"; };
+		9D4F65062434CEBF0002795B /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
+		9D4F65082434DC690002795B /* TrendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingCell.swift; sourceTree = "<group>"; };
+		9D4F650A2434DE060002795B /* SubscriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCell.swift; sourceTree = "<group>"; };
 		9D8B72152432334300B0E758 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		9D8B72172432364200B0E758 /* Channel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		9DA83D33242FB061008F8C10 /* lp.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lp.gif; sourceTree = "<group>"; };
@@ -100,6 +106,9 @@
 			children = (
 				9D3CBF5724310C9F0037C818 /* BaseCell.swift */,
 				9D0544A4242E6FF900C56982 /* VideoCell.swift */,
+				9D4F65062434CEBF0002795B /* FeedCell.swift */,
+				9D4F65082434DC690002795B /* TrendingCell.swift */,
+				9D4F650A2434DE060002795B /* SubscriptionCell.swift */,
 				9DDAB35C243383F6009609FA /* SettingsCell.swift */,
 				9D3CBF5524310C410037C818 /* MenuBarCell.swift */,
 				9D3CBF5324310B7A0037C818 /* MenuBar.swift */,
@@ -218,6 +227,7 @@
 				9D054495242E663200C56982 /* HomeController.swift in Sources */,
 				9DDAB357243362BD009609FA /* ImageLoader.swift in Sources */,
 				9D3CBF5624310C410037C818 /* MenuBarCell.swift in Sources */,
+				9D4F650B2434DE060002795B /* SubscriptionCell.swift in Sources */,
 				9D4F65042434A2810002795B /* VideoFetcher.swift in Sources */,
 				9D4986F124338DE8007D5D6A /* Setting.swift in Sources */,
 				9DDAB35D243383F6009609FA /* SettingsCell.swift in Sources */,
@@ -227,7 +237,9 @@
 				9D8B72162432334300B0E758 /* Video.swift in Sources */,
 				9DDAB35B24337E3B009609FA /* SettingsLauncher.swift in Sources */,
 				9D054493242E663200C56982 /* SceneDelegate.swift in Sources */,
+				9D4F65072434CEBF0002795B /* FeedCell.swift in Sources */,
 				9D8B72182432364200B0E758 /* Channel.swift in Sources */,
+				9D4F65092434DC690002795B /* TrendingCell.swift in Sources */,
 				9D3CBF5424310B7A0037C818 /* MenuBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
