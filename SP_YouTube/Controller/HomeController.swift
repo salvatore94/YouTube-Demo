@@ -52,6 +52,7 @@ class HomeController: UICollectionViewController {
         setupNavBarButtons()
     }
     
+
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         
@@ -106,7 +107,8 @@ extension HomeController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         //We need to remove top insets from height to prevent compiler warning
-        let height = view.frame.height - menuBarHeight
+        //let height = view.frame.height - 84
+        let height = view.frame.height - menuBarHeight - view.safeAreaInsets.bottom
         
         return CGSize(width: view.frame.width, height: height)
     }

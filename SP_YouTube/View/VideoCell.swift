@@ -80,6 +80,7 @@ class VideoCell : BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
+        label.textColor = .black
         return label
     }()
     
@@ -89,6 +90,7 @@ class VideoCell : BaseCell {
         label.textColor = UIColor.lightGray
         label.isUserInteractionEnabled = false
         label.contentInset = .init(top: -8, left: -4, bottom: 0, right: 0)
+        label.backgroundColor = .clear
         return label
     }()
     

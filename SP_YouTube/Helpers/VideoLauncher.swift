@@ -42,7 +42,7 @@ class VideoLauncher: NSObject {
         videoViewTopConstraint.constant = 0
         videoViewLeadingConstraint.constant = 0
         
-        let animator = UIViewPropertyAnimator(duration: 1, curve: .easeOut) {
+        let animator = UIViewPropertyAnimator(duration: 0.7, curve: .easeOut) {
             window.layoutIfNeeded()
             self.videoView.contentView.alpha = 1.0
         }

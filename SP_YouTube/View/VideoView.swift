@@ -56,8 +56,7 @@ private extension VideoView {
         //we want to keep preview at least 160x90
         let minScale = 90/player.bounds.height
         
-        
-        let yScale = 1 - translation.y/frame.height
+        let yScale = 1 - (translation.y - player.bounds.height/2)/frame.height
         var scale = max(minScale, yScale)
         
         scale = min(1, scale)
@@ -74,22 +73,23 @@ private extension VideoView {
             
             center.x = windowBounds.maxX - frame.width/2
             center.y = windowBounds.maxY - frame.height/2 + (previewHeight - 90)
-        case .ended:
-            if scale > 0.8 {
-                UIView.animate(withDuration: 0.3) {
-                    self.center.y = windowBounds.midY
-                    self.contentView.alpha = 1.0
-                }
-                break
-            }
+        case .ended, .cancelled, .failed:
+            let scaleThreshold : CGFloat = 0.85
+            let shouldReopen = scale > scaleThreshold
+            let closedFinalTransform = CGAffineTransform.identity.scaledBy(x: minScale, y: minScale)
+            let finalTransform = shouldReopen ? CGAffineTransform.identity : closedFinalTransform
+            let finalCenterX = shouldReopen ? windowBounds.midX : windowBounds.maxX - bounds.width*minScale/2
+            let finalCenterY = shouldReopen ? windowBounds.midY : windowBounds.maxY - bounds.height*minScale/2 + (previewHeight - 90)
+            let finalCenter = CGPoint(x: finalCenterX, y: finalCenterY)
+            let finalAlphaForContentView : CGFloat = shouldReopen ? 1 : 0
+            let animationDuration : Double = shouldReopen ? 0.3 : 0.5
             
-            
-            UIView.animate(withDuration: 1) {
-                self.transform = CGAffineTransform.identity.scaledBy(x: minScale, y: minScale)
-                self.center.x = windowBounds.maxX - self.bounds.width*minScale/2
-                self.center.y = windowBounds.maxY - self.bounds.height*minScale/2 + (previewHeight - 90)
-                self.contentView.alpha = 0
-            }
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+                self.transform = finalTransform
+                self.center = finalCenter
+                self.contentView.alpha = finalAlphaForContentView
+            }, completion: nil)
+
             
         default:
             break
