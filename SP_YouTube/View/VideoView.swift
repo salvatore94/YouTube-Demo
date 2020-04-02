@@ -52,6 +52,12 @@ private extension VideoView {
         let windowBounds = window.bounds
         let translation = sender.translation(in: window)
         
+        if UIDevice.current.orientation.isLandscape {
+            self.transform = .identity
+            self.center = window.center
+            return
+        }
+        
         //let minSize = CGSize(width: 160, height: 90)
         //we want to keep preview at least 160x90
         let minScale = 90/player.bounds.height
@@ -84,7 +90,10 @@ private extension VideoView {
             let finalAlphaForContentView : CGFloat = shouldReopen ? 1 : 0
             let animationDuration : Double = shouldReopen ? 0.3 : 0.5
             
-            UIView.animate(withDuration: animationDuration, delay: 0, options: .allowUserInteraction, animations: {
+            player.handlePause()
+            player.isUserInteractionEnabled = shouldReopen
+            
+            UIView.animate(withDuration: animationDuration, delay: 0.1, options: .allowUserInteraction, animations: {
                 self.transform = finalTransform
                 self.center = finalCenter
                 self.contentView.alpha = finalAlphaForContentView

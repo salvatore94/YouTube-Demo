@@ -34,6 +34,7 @@ class SettingsCell: BaseCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = .black
         return label
     }()
     
