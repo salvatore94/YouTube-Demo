@@ -34,7 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D05448D242E663200C56982 /* SP_YouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SP_YouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D05448D242E663200C56982 /* SPYouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SPYouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D054490242E663200C56982 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D054492242E663200C56982 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9D054494242E663200C56982 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		9D05448E242E663200C56982 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9D05448D242E663200C56982 /* SP_YouTube.app */,
+				9D05448D242E663200C56982 /* SPYouTube.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -178,7 +178,7 @@
 			);
 			name = SP_YouTube;
 			productName = SP_YouTube;
-			productReference = 9D05448D242E663200C56982 /* SP_YouTube.app */;
+			productReference = 9D05448D242E663200C56982 /* SPYouTube.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -391,12 +391,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AT2W83BFC8;
 				INFOPLIST_FILE = SP_YouTube/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.salvatorepolito.SP-YouTube";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SPYouTube;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -409,12 +410,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AT2W83BFC8;
 				INFOPLIST_FILE = SP_YouTube/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.salvatorepolito.SP-YouTube";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SPYouTube;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
