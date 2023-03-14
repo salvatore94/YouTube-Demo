@@ -9,55 +9,8 @@
 import UIKit
 
 class VideoCell : BaseCell {
-    var video: Video? {
-        didSet {
-            guard let video = video else {
-                clear()
-                return
-            }
-            titleLabel.text = video.title
-
-            
-            guard let thumbnailImageViewURL = URL(string: video.thumbnailImageName) else {return}
-            ImageLoader.image(for: thumbnailImageViewURL) { (image) in
-                if let video = self.video,
-                    thumbnailImageViewURL == URL(string: video.thumbnailImageName) {
-                    self.thumbnailImageView.image = image
-                }
-            }
-            
-        
-            guard let userProfileImageViewURL = URL(string: video.channel.profileImageName) else {return}
-            ImageLoader.image(for: userProfileImageViewURL) { (image) in
-                if let video = self.video,
-                    userProfileImageViewURL == URL(string: video.channel.profileImageName) {
-                    self.userProfileImageView.image = image
-                }
-            }
-            
-            
-            var subTitleText = ""
-            subTitleText.append(contentsOf: video.channel.name)
-            
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            let nsNumber = NSNumber(value: video.numbersOfViews)
-            if let formatted = numberFormatter.string(from: nsNumber){
-                subTitleText.append(contentsOf: " - \(formatted)")
-            }
-            
-            subTitleLabel.text = subTitleText
-            
-            
-            //adapting titleLabel height to wrap long titles
-            let size = CGSize(width: frame.width - 88, height: 1000)
-            let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-            let estimatedRect = NSString(string: video.title).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)], context: nil)
-            
-            titleLabelHeightConstraint.constant = estimatedRect.size.height > 20 ? 44 :  20
-            self.setNeedsLayout()
-        }
-    }
+    
+    var video: Video? {didSet {setVideo()}}
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -149,5 +102,54 @@ class VideoCell : BaseCell {
         userProfileImageView.image = nil
         titleLabel.text = nil
         subTitleLabel.text = ""
+    }
+    
+    private func setVideo() {
+        guard let video = video else {
+            clear()
+            return
+        }
+        
+        titleLabel.text = video.title
+
+        
+        guard let thumbnailImageViewURL = URL(string: video.thumbnailImageName) else {return}
+        ImageLoader.image(for: thumbnailImageViewURL) { (image) in
+            if let video = self.video,
+                thumbnailImageViewURL == URL(string: video.thumbnailImageName) {
+                self.thumbnailImageView.image = image
+            }
+        }
+        
+    
+        guard let userProfileImageViewURL = URL(string: video.channel.profileImageName) else {return}
+        ImageLoader.image(for: userProfileImageViewURL) { (image) in
+            if let video = self.video,
+                userProfileImageViewURL == URL(string: video.channel.profileImageName) {
+                self.userProfileImageView.image = image
+            }
+        }
+        
+        
+        var subTitleText = ""
+        subTitleText.append(contentsOf: video.channel.name)
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let nsNumber = NSNumber(value: video.numbersOfViews)
+        if let formatted = numberFormatter.string(from: nsNumber){
+            subTitleText.append(contentsOf: " - \(formatted)")
+        }
+        
+        subTitleLabel.text = subTitleText
+        
+        
+        //adapting titleLabel height to wrap long titles
+        let size = CGSize(width: frame.width - 88, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let estimatedRect = NSString(string: video.title).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)], context: nil)
+        
+        titleLabelHeightConstraint.constant = estimatedRect.size.height > 20 ? 44 :  20
+        self.setNeedsLayout()
     }
 }
